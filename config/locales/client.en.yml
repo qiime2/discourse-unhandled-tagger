@@ -3,7 +3,7 @@ en:
     unhandled_tagger:
       handled:
         title: "Handled"
-        help: "Mark topic as handled"
+        help: "Mark topic as queued"
       unhandle:
         title: "Unhandle"
-        help: "Mark topic as unhandled"
+        help: "Mark topic as unqueued"
