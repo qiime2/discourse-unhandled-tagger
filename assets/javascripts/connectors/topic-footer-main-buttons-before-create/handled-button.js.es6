@@ -2,7 +2,7 @@ import Topic from 'discourse/models/topic';
 
 function removeTag(topic) {
   const tags = topic.get('tags');
-  tags.removeObject('unhandled');
+  tags.removeObject('queued');
   return tags;
 }
 
@@ -20,14 +20,14 @@ export default {
   setupComponent({ topic }, component) {
     const staff = component.currentUser && component.currentUser.get('staff');
     component.set('showHandled', staff && !topic.get('isPrivateMessage'));
-    component.set('handled', !topic.tags || !topic.tags.includes('unhandled'));
+    component.set('handled', !topic.tags || !topic.tags.includes('queued'));
   },
 
   actions: {
     markUnhandled() {
       const { topic } = this.args;
       const tags = removeTag(topic);
-      tags.addObject('unhandled');
+      tags.addObject('queued');
       this.set('handled', false);
       return updateTags(topic, tags, this.appEvents);
     },

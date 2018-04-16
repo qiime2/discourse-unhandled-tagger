@@ -10,9 +10,9 @@ after_initialize do
   DiscourseEvent.on(:post_created) do |post, _, user|
     topic = post.topic
     unless user.staff? || topic.private_message?
-      tag = Tag.find_by(name: "unhandled")
+      tag = Tag.find_by(name: "queued")
       unless tag
-        tag = Tag.create!(name: "unhandled")
+        tag = Tag.create!(name: "queued")
       end
       topic.tags ||= []
 
