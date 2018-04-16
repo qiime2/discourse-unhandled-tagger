@@ -2,8 +2,8 @@ en:
   js:
     unhandled_tagger:
       handled:
-        title: "Handled"
+        title: "Queue Topic"
         help: "Mark topic as queued"
       unhandle:
-        title: "Unhandle"
+        title: "Unqueue Topic"
         help: "Mark topic as unqueued"
