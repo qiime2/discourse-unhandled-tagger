@@ -1,5 +1,5 @@
-{{#if showHandled}}
-  {{#if handled}}
+{{#if this.showHandled}}
+  {{#if this.handled}}
     {{d-button
       class="unhandle"
       icon="times-circle"
@@ -10,7 +10,7 @@
   {{else}}
     {{d-button
       class="handle"
-      icon="check-circle"
+      icon="circle-check"
       action=(action "setUnhandled" false)
       label="unhandled_tagger.handled.title"
       title="unhandled_tagger.handled.help"
