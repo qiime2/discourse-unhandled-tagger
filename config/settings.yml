@@ -1,5 +1,5 @@
 plugins:
   unhandled_tag:
-    default: 'unhandled'
+    default: 'queued'
     client: true
-    hidden: true
+    hidden: false

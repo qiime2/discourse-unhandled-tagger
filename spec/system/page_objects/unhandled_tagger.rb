@@ -13,12 +13,12 @@ module PageObjects
 
       def handled?
         page.has_css?(".topic-footer-main-buttons .unhandle")
-        page.find(".discourse-tags").has_no_content?("unhandled")
+        page.find(".discourse-tags").has_no_content?("queued")
       end
 
       def unhandled?
         page.has_css?(".topic-footer-main-buttons .handle")
-        page.find(".discourse-tags").has_content?("unhandled")
+        page.find(".discourse-tags").has_content?("queued")
       end
 
       def disabled?

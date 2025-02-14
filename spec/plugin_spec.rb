@@ -10,14 +10,14 @@ describe "discourse-unhandled-tagger" do # rubocop:disable RSpec/DescribeClass
   it "tags a topic when non-staff user replies" do
     PostCreator.create!(Fabricate(:user), topic_id: topic.id, raw: "this is a test reply")
 
-    expect(topic.tags.reload.pluck(:name)).to contain_exactly("unhandled")
+    expect(topic.tags.reload.pluck(:name)).to contain_exactly("queued")
     expect(topic.first_post.post_revisions.size).to eq(0)
   end
 
   it "does not tag a topic when staff user replies" do
     PostCreator.create!(Fabricate(:admin), topic_id: topic.id, raw: "this is a test reply")
 
-    expect(topic.tags.reload.pluck(:name)).not_to contain_exactly("unhandled")
+    expect(topic.tags.reload.pluck(:name)).not_to contain_exactly("queued")
   end
 
   it "tags a topic created by non-staff user" do
@@ -28,7 +28,7 @@ describe "discourse-unhandled-tagger" do # rubocop:disable RSpec/DescribeClass
         raw: "this is a test reply",
       )
 
-    expect(post.topic.tags.reload.pluck(:name)).to contain_exactly("unhandled")
+    expect(post.topic.tags.reload.pluck(:name)).to contain_exactly("queued")
   end
 
   it "does not remove existent tags" do
@@ -36,6 +36,6 @@ describe "discourse-unhandled-tagger" do # rubocop:disable RSpec/DescribeClass
 
     PostCreator.create!(Fabricate(:user), topic_id: topic.id, raw: "this is a test reply")
 
-    expect(topic.tags.reload.pluck(:name)).to contain_exactly("hello", "world", "unhandled")
+    expect(topic.tags.reload.pluck(:name)).to contain_exactly("hello", "world", "queued")
   end
 end
