@@ -9,4 +9,4 @@ on:
 jobs:
   ci:
     # Replaces discourse/.github/.github/workflows/discourse-plugin.yml@v1
-    uses: qiime2-cutlery/discourse-dotgithub/.github/workflows/discourse-plugin.yml@main
+    uses: qiime2-cutlery/discourse-dotgithub/.github/workflows/discourse-plugin.yml@v1
