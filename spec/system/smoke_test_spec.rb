@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-describe "DiscourseUnhandledTagger | smoke test", type: :system do
-  fab!(:current_user) { Fabricate(:admin) }
+describe "DiscourseUnhandledTagger | smoke test" do
+  fab!(:current_user, :admin)
   fab!(:tag)
   fab!(:topic) { Fabricate(:topic, tags: [tag]) }
   fab!(:post) { create_post(topic: topic, raw: "this is a post which should be handled") }
@@ -57,7 +57,7 @@ describe "DiscourseUnhandledTagger | smoke test", type: :system do
     end
 
     context "when current user is not staff" do
-      fab!(:current_user) { Fabricate(:user) }
+      fab!(:current_user, :user)
 
       it "doesn’t show the button" do
         topic_page.visit_topic(post.topic)
