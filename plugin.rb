@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # name: discourse-unhandled-tagger
-# about: Add an "unhandled" tag to every topic where non-staff post
+# about: Add a "queued" tag to every topic where non-staff post
 # version: 0.1
 # authors: Sam Saffron
 

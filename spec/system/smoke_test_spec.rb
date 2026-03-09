@@ -4,7 +4,7 @@ describe "DiscourseUnhandledTagger | smoke test" do
   fab!(:current_user, :admin)
   fab!(:tag)
   fab!(:topic) { Fabricate(:topic, tags: [tag]) }
-  fab!(:post) { create_post(topic: topic, raw: "this is a post which should be handled") }
+  fab!(:post) { create_post(topic: topic, raw: "this is a post which should be queued") }
 
   let(:topic_page) { PageObjects::Pages::Topic.new }
   let(:unhandled_tagger_page) { PageObjects::Pages::UnhandledTagger.new }
@@ -46,7 +46,7 @@ describe "DiscourseUnhandledTagger | smoke test" do
       end
     end
 
-    context "when unhandled tag is undefined" do
+    context "when queued tag is undefined" do
       before { SiteSetting.unhandled_tag = nil }
 
       it "doesn’t show the button" do
