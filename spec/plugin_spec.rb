@@ -92,13 +92,13 @@ describe "discourse-unhandled-tagger" do # rubocop:disable RSpec/DescribeClass
 
     before { SiteSetting.verbose_discourse_unhandled_tagger_logging = true }
 
-    it "logs when the plugin adds the unhandled tag" do
+    it "logs when the plugin adds the queued tag" do
       Rails
         .logger
         .expects(:warn)
         .with do |msg|
           msg.match?(
-            /Verbose Unhandled Tagger Log: tag added to topic: #{topic.id}, post: \d+ by plugin/,
+            /Verbose Queued Tagger Log: tag added to topic: #{topic.id}, post: \d+ by plugin/,
           )
         end
 
@@ -113,7 +113,7 @@ describe "discourse-unhandled-tagger" do # rubocop:disable RSpec/DescribeClass
         .expects(:warn)
         .with do |msg|
           msg.match?(
-            /Verbose Unhandled Tagger Log: tag added to topic: #{topic.id}, post: \d+ by plugin/,
+            /Verbose Queued Tagger Log: tag added to topic: #{topic.id}, post: \d+ by plugin/,
           )
         end
         .never
@@ -121,7 +121,7 @@ describe "discourse-unhandled-tagger" do # rubocop:disable RSpec/DescribeClass
       PostCreator.create!(user, topic_id: topic.id, raw: "this is another reply")
     end
 
-    it "logs when a user adds the unhandled tag via editing" do
+    it "logs when a user adds the queued tag via editing" do
       post = PostCreator.create!(admin, topic_id: topic.id, raw: "this is a test reply")
 
       Rails
@@ -129,18 +129,18 @@ describe "discourse-unhandled-tagger" do # rubocop:disable RSpec/DescribeClass
         .expects(:warn)
         .with do |msg|
           msg.match?(
-            /Verbose Unhandled Tagger Log: tag added to topic: #{topic.id}, post: \d+ by #{admin.username}/,
+            /Verbose Queued Tagger Log: tag added to topic: #{topic.id}, post: \d+ by #{admin.username}/,
           )
         end
 
-      PostRevisor.new(post, topic).revise!(admin, { tags: ["unhandled"] }, validate_post: false)
+      PostRevisor.new(post, topic).revise!(admin, { tags: ["queued"] }, validate_post: false)
     end
 
-    it "logs when a user removes the unhandled tag via editing" do
+    it "logs when a user removes the queued tag via editing" do
       DiscourseTagging.tag_topic_by_names(
         topic,
         Discourse.system_user.guardian,
-        %w[unhandled other],
+        %w[queued other],
       )
       post = PostCreator.create!(admin, topic_id: topic.id, raw: "this is a test reply")
 
@@ -149,7 +149,7 @@ describe "discourse-unhandled-tagger" do # rubocop:disable RSpec/DescribeClass
         .expects(:warn)
         .with do |msg|
           msg.match?(
-            /Verbose Unhandled Tagger Log: tag removed from topic: #{topic.id}, post: \d+ by #{admin.username}/,
+            /Verbose Queued Tagger Log: tag removed from topic: #{topic.id}, post: \d+ by #{admin.username}/,
           )
         end
 
@@ -163,13 +163,13 @@ describe "discourse-unhandled-tagger" do # rubocop:disable RSpec/DescribeClass
 
     before { SiteSetting.verbose_discourse_unhandled_tagger_logging = false }
 
-    it "does not log when the plugin adds the unhandled tag" do
+    it "does not log when the plugin adds the queued tag" do
       Rails
         .logger
         .expects(:warn)
         .with do |msg|
           msg.match?(
-            /Verbose Unhandled Tagger Log: tag added to topic: #{topic.id}, post: \d+ by plugin/,
+            /Verbose Queued Tagger Log: tag added to topic: #{topic.id}, post: \d+ by plugin/,
           )
         end
         .never
@@ -185,12 +185,12 @@ describe "discourse-unhandled-tagger" do # rubocop:disable RSpec/DescribeClass
         .expects(:warn)
         .with do |msg|
           msg.match?(
-            /Verbose Unhandled Tagger Log: tag added to topic: #{topic.id}, post: \d+ by #{admin.username}/,
+            /Verbose Queued Tagger Log: tag added to topic: #{topic.id}, post: \d+ by #{admin.username}/,
           )
         end
         .never
 
-      PostRevisor.new(post, topic).revise!(admin, { tags: ["unhandled"] }, validate_post: false)
+      PostRevisor.new(post, topic).revise!(admin, { tags: ["queued"] }, validate_post: false)
     end
   end
 
