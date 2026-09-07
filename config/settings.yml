@@ -2,4 +2,7 @@ plugins:
   unhandled_tag:
     default: 'queued'
     client: true
-    hidden: false
+    hidden: true
+  verbose_discourse_unhandled_tagger_logging:
+    default: false
+    hidden: true
