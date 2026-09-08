@@ -4,6 +4,7 @@
 # about: Add a "queued" tag to every topic where non-staff post
 # version: 0.1
 # authors: Sam Saffron
+register_asset "stylesheets/common/unhandled-tagger.scss"
 
 after_initialize do
   on(:post_created) do |post, _, user|
