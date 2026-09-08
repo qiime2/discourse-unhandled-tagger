@@ -67,7 +67,7 @@ export default class HandledButton extends Component {
   <template>
     {{#if this.handled}}
       <DButton
-        class="btn-default unhandle"
+        class="btn-default topic-footer-button unhandle"
         @icon="circle-xmark"
         @action={{fn this.setUnhandled true}}
         @label="unhandled_tagger.unhandle.title"
@@ -75,7 +75,7 @@ export default class HandledButton extends Component {
       />
     {{else}}
       <DButton
-        class="btn-default handle"
+        class="btn-default topic-footer-button handle"
         @icon="circle-check"
         @action={{fn this.setUnhandled false}}
         @label="unhandled_tagger.handled.title"
